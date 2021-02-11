@@ -64,4 +64,4 @@
 
 - name: install tkgi cli
   include: install-tkgi-cli.yml
-  when: pivnet_api_token != None
+  when: (pivnet_api_token is defined) and (pivnet_api_token != "")
