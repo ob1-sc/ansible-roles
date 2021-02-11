@@ -7,3 +7,5 @@
     - htop
     - gdebi
     - tree
+    - fzf
+    - mosh
