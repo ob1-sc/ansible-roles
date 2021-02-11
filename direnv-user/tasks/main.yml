@@ -1,0 +1,17 @@
+---
+- name: install direnv package
+  apt:
+    name: direnv
+
+- name: ensure bashrc exists
+  become_user: "{{ local_user }}"
+  copy:
+    content: ""
+    dest: /home/{{ local_user }}/.bashrc
+    force: no
+
+- name: add direnv bashrc hook
+  become_user: "{{ local_user }}"
+  lineinfile:
+    path: /home/{{ local_user }}/.bashrc
+    line: eval "$(direnv hook bash)"
