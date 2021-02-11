@@ -1,0 +1,7 @@
+
+---
+- name: login to pivnet 
+  shell: pivnet login --api-token {{pivnet_api_token}}
+
+- name: download file from pivnet
+  shell: pivnet download-product-files -p {{slug}} -r {{release}} -g {{glob}} --accept-eula -d {{download_dir}}

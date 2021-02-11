@@ -1,0 +1,35 @@
+---
+- name: install lastpass cli dependencies
+  apt:
+    name:
+      - bash-completion
+      - build-essential
+      - cmake
+      - libcurl4
+      - libcurl4-openssl-dev
+      - libssl-dev
+      - libxml2
+      - libxml2-dev
+      - libssl1.1
+      - pkg-config
+      - ca-certificates
+      - xclip
+
+- name: download lastpass cli repo
+  git:
+    repo: https://github.com/lastpass/lastpass-cli.git
+    dest: /tmp/lastpass-cli
+
+- name: build the lastpass cli
+  make:
+    chdir: /tmp/lastpass-cli
+
+- name: install the lastpass cli
+  make:
+    chdir: /tmp/lastpass-cli
+    target: install
+
+- name: cleanup lastpass cli repo
+  file:
+    path: /tmp/lastpass-cli/
+    state: absent

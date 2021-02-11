@@ -1,0 +1,18 @@
+---
+- name: setup tmux
+  become_user: "{{ local_user }}"
+  copy:
+    src: files/.tmux.conf
+    dest: /home/{{ local_user }}/
+
+- name: creates directory
+  become_user: "{{ local_user }}"
+  file:
+    path: /home/{{ local_user }}/.tmux/plugins/tpm
+    state: directory
+
+- name: install tmux plugin manager
+  become_user: "{{ local_user }}"
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: /home/{{ local_user }}/.tmux/plugins/tpm

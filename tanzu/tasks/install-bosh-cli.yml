@@ -1,0 +1,24 @@
+---
+- name: install bosh dependencies
+  apt:
+    name:
+      - build-essential
+      - zlibc
+      - zlib1g-dev
+      - ruby
+      - ruby-dev
+      - openssl
+      - libxslt-dev
+      - libxml2-dev
+      - libssl-dev
+      - libreadline6-dev
+      - libyaml-dev
+      - libsqlite3-dev
+      - sqlite3
+  ignore_errors: yes
+
+- name: install bosh cli
+  include: install-github-release.yml
+  vars:
+    repository: "{{bosh_cli.repository}}"
+    install_location: "{{bosh_cli.install_location}}"

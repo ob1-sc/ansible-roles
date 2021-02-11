@@ -1,0 +1,7 @@
+---
+- name: install tmux
+  apt:
+    name:
+      - xdg-utils
+      - tmux
+      - xclip

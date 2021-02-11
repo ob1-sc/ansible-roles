@@ -1,0 +1,12 @@
+---
+- name: create lastpass .config dir
+  become_user: "{{ local_user }}"
+  file:
+    path: /home/{{ local_user }}/.config/lpass
+    state: directory
+
+- name: create lastpass .local dir
+  become_user: "{{ local_user }}"
+  file:
+    path: /home/{{ local_user }}/.local/share/lpass
+    state: directory

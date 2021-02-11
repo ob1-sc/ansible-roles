@@ -1,0 +1,52 @@
+---
+- name: create credhub cli release api url for latest version
+  set_fact:
+    api_url: https://api.github.com/repos/{{repository}}/releases/latest
+  when: credhub_cli.version is not defined
+
+- name: Create credhub cli release api url for specified version
+  set_fact:
+    api_url: https://api.github.com/repos/{{repository}}/releases/tags/{{release_tag}}
+  when: credhub_cli.version is defined
+
+- name: Get github release info
+  uri:
+    url: "{{api_url}}"
+    return_content: yes
+    body_format: json
+  register: release_info
+
+- name: Get release download URL
+  set_fact:
+    release_url: "{{ release_info.json | to_json | from_json | json_query(json_filter) | join('') }}"
+  vars:
+    - json_filter: assets[?(contains(name, '{{ release_asset_filter | default('linux') }}') && !contains(name, '32'))].browser_download_url
+
+- debug:
+    msg: "Downloading release from: {{release_url}}"
+
+- name: create temporary dir
+  tempfile:
+    state: directory
+    suffix: -credhub-cli
+  register: temp_dir
+
+- debug:
+    msg: "created tmp file: {{temp_dir.path}}"
+
+- name: download credhub cli archive
+  get_url:
+    url: "{{release_url}}"
+    dest: "{{temp_dir.path}}/credhub.tgz"
+
+- name: unpack credhub cli archive
+  unarchive:
+    src: "{{temp_dir.path}}/credhub.tgz"
+    dest: "{{credhub_cli.install_location}}"
+    exclude: NOTICE,LICENSE
+    remote_src: true
+
+- name: delete temporary dir
+  file:
+    state: absent
+    path: "{{temp_dir.path}}/"

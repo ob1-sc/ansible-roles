@@ -1,0 +1,9 @@
+---
+- name: install misc apt packages
+  apt:
+    name:
+    - git
+    - git-crypt
+    - htop
+    - gdebi
+    - tree

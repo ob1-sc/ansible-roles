@@ -1,0 +1,26 @@
+---
+- name: install aws cli dependencies
+  apt:
+    name:
+      - python-dev
+  ignore_errors: yes
+
+- name: create temporary dir
+  tempfile:
+    state: directory
+    suffix: -aws-cli
+  register: temp_dir
+
+- name: unpack aws cli archive
+  unarchive:
+    src: "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip"
+    dest: "{{temp_dir.path}}"
+    remote_src: true
+
+- name: install aws cli 
+  command: "{{temp_dir.path}}/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws"
+
+- name: removing temporary dir
+  file:
+    path: "{{temp_dir.path}}"
+    state: absent

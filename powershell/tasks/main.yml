@@ -1,0 +1,11 @@
+---
+- name: Register the Microsoft repository GPG keys
+  apt:
+    deb: https://packages.microsoft.com/config/ubuntu/{{ ansible_distribution_version }}/packages-microsoft-prod.deb
+
+- name: Install PowerShell
+  apt:
+    name: powershell
+    update_cache: yes
+  ignore_errors: yes
+

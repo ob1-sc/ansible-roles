@@ -1,0 +1,39 @@
+---
+- name: create cf cli release api url for latest version
+  set_fact:
+    cli_url: https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github-rel
+  when: cf_cli.version is not defined
+
+- name: Create cf cli release api url for specified version
+  set_fact:
+    cli_url: https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github-rel&version={{cf_cli.version}}
+  when: cf_cli.version is defined
+
+- debug:
+    msg: "downloading cf cli from: {{cli_url}}"
+
+- name: create temporary dir
+  tempfile:
+    state: directory
+    suffix: -cf-cli
+  register: temp_dir
+
+- debug:
+    msg: "created tmp file: {{temp_dir.path}}"
+
+- name: download cf cli archive
+  get_url:
+    url: "{{cli_url}}"
+    dest: "{{temp_dir.path}}/cf.tgz"
+
+- name: unpack cf cli archive
+  unarchive:
+    src: "{{temp_dir.path}}/cf.tgz"
+    dest: "{{cf_cli.install_location}}"
+    exclude: NOTICE,LICENSE
+    remote_src: true
+
+- name: delete temporary dir
+  file:
+    state: absent
+    path: "{{temp_dir.path}}/"

@@ -1,0 +1,30 @@
+---
+- name: create temporary dir
+  tempfile:
+    state: directory
+    suffix: -tkgi-cli
+  register: temp_dir
+
+- debug:
+    msg: "created tmp file: {{temp_dir.path}}"
+
+- name: install tkgi cli
+  include: pivnet-download.yml
+  vars:
+    slug: "{{tkgi.slug}}"
+    release: "{{tkgi.release}}"
+    glob: "{{tkgi.glob}}"
+    download_dir: "{{temp_dir.path}}"
+
+- name: relocate cli
+  shell: mv {{temp_dir.path}}/* {{tkgi.install_location}}
+
+- name: update cli permissions
+  file:
+    path: "{{tkgi.install_location}}"
+    mode: '0755'
+    
+- name: delete temporary dir
+  file:
+    state: absent
+    path: "{{temp_dir.path}}/"

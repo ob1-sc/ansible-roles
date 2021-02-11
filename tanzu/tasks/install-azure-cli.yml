@@ -1,0 +1,24 @@
+---
+- name: install Microsoft Azure cli dependencies
+  apt:
+    name:
+      - ca-certificates
+      - curl
+      - apt-transport-https
+      - lsb-release
+      - gnupg
+  ignore_errors: yes
+
+- name: Add an Microsoft Azure Apt signing key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: Add Microsoft Azure PPA
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ "{{ ansible_distribution_release }}" main
+    mode: "0644"
+
+- name: Install Microsoft Azure cli
+  apt:
+    name: azure-cli
+

@@ -1,0 +1,37 @@
+---
+- name: get latest kubectl version
+  shell: curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
+  register: kubectl_latest_version
+  when: kubectl.version is not defined
+
+- name: create kubectl download url for latest version
+  set_fact:
+    cli_url: https://storage.googleapis.com/kubernetes-release/release/{{kubectl_latest_version.stdout}}/bin/linux/amd64/kubectl
+  when: kubectl.version is not defined
+
+- name: create kubectl download url for specified version
+  set_fact:
+    cli_url: https://storage.googleapis.com/kubernetes-release/release/v{{kubectl.version}}/bin/linux/amd64/kubectl
+  when: kubectl.version is defined
+
+- debug:
+    msg: "downloading kubectl from: {{cli_url}}"
+
+- name: define install path with default filename
+  set_fact:
+    install_path: "{{kubectl.install_location}}/kubectl"
+  when: kubectl.filename_override is not defined
+
+- name: define install path with override filename
+  set_fact:
+    install_path: "{{kubectl.install_location}}/{{kubectl.filename_override}}"
+  when: kubectl.filename_override is defined
+
+- debug:
+    msg: "downloading kubectl to: {{install_path}}"
+
+- name: download kubectl
+  get_url:
+    url: "{{cli_url}}"
+    dest: "{{install_path}}"
+    mode: 0755
