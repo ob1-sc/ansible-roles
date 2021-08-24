@@ -13,12 +13,12 @@
 
 - name: unpack aws cli archive
   unarchive:
-    src: "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip"
+    src: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
     dest: "{{temp_dir.path}}"
     remote_src: true
 
 - name: install aws cli 
-  command: "{{temp_dir.path}}/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws"
+  command: "{{temp_dir.path}}/aws/install"
 
 - name: removing temporary dir
   file:
