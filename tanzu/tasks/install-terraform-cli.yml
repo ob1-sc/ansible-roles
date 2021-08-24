@@ -2,8 +2,6 @@
 - name: get terraform release info
   uri:
     url: "https://checkpoint-api.hashicorp.com/v1/check/terraform"
-    return_content: yes
-    body_format: json
   register: release_info
 
 - name: get latest download version
