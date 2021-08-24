@@ -43,7 +43,6 @@ texplate_cli:
 
 kubectl:
   install_location: /usr/local/bin
-  version: 1.17.8
 
 tkgi:
   glob: tkgi-linux-amd64-*
