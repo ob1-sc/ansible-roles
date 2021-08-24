@@ -18,7 +18,7 @@
     remote_src: true
 
 - name: install aws cli 
-  command: "{{temp_dir.path}}/aws/install"
+  command: "{{temp_dir.path}}/aws/install --update"
 
 - name: removing temporary dir
   file:
