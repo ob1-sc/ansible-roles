@@ -1,0 +1,19 @@
+---
+- name: install keychain
+  apt:
+    name: keychain
+
+- name: install zsh
+  apt:
+    name: keychain
+    
+- name: install oh-my-zsh
+  become_user: "{{ local_user }}"
+  command: "sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh --unattended)"
+
+- name: install powerlevel10k
+  become_user: "{{ local_user }}"
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: /home/{{ local_user }}/.oh-my-zsh/custom/themes/powerlevel10k
+    depth: 1
