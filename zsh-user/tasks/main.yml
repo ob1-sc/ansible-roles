@@ -7,6 +7,11 @@
   apt:
     name: zsh
 
+- name: delete oh-my-zsh installation
+  file:
+    path: /home/{{ local_user }}/.oh-my-zsh
+    state: absent
+
 - name: download oh-my-zsh installer
   get_url:
     url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
