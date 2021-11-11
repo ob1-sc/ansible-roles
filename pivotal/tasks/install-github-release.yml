@@ -1,0 +1,32 @@
+---
+- name: Create default github release api url
+  set_fact:
+    api_url: https://api.github.com/repos/{{repository}}/releases/latest
+  when: release_tag is not defined
+
+- name: Create tagged github release api url
+  set_fact:
+    api_url: https://api.github.com/repos/{{repository}}/releases/tags/{{release_tag}}
+  when: release_tag is defined
+
+- name: Get github release info
+  uri:
+    url: "{{api_url}}"
+    return_content: yes
+    body_format: json
+  register: release_info
+
+- name: Get release download URL
+  set_fact:
+    release_url: "{{ release_info.json | to_json | from_json | json_query(json_filter) | join('') }}"
+  vars:
+    - json_filter: assets[?(contains(name, '{{ release_asset_filter | default('linux') }}') && !contains(name, 'tar') && !contains(name, '32'))].browser_download_url
+
+- debug:
+    msg: "Downloading release from: {{release_url}}"
+
+- name: Download github release
+  get_url:
+    url: "{{release_url}}"
+    dest: "{{install_location}}"
+    mode: 0755

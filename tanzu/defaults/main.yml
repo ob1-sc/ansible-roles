@@ -1,32 +1,4 @@
 ---
-gomplate_cli:
-  repository: hairyhenderson/gomplate
-  install_location: /usr/local/bin/gomplate
-  release_asset_filter: linux-amd64-slim
-  
-om_cli:
-  repository: pivotal-cf/om
-  install_location: /usr/local/bin/om
-
-pivnet_cli:
-  repository: pivotal-cf/pivnet-cli
-  install_location: /usr/local/bin/pivnet
-
-bbl_cli:
-  repository: cloudfoundry/bosh-bootloader
-  install_location: /usr/local/bin/bbl
-
-bosh_cli:
-  repository: cloudfoundry/bosh-cli
-  install_location: /usr/local/bin/bosh
-
-credhub_cli:
-  repository: cloudfoundry-incubator/credhub-cli
-  install_location: /usr/local/bin
-
-cf_cli:
-  install_location: /usr/local/bin
-
 terraform_cli:
   install_location: /usr/local/bin
 
@@ -37,15 +9,5 @@ jq_cli:
   repository: stedolan/jq
   install_location: /usr/local/bin/jq
 
-texplate_cli:
-  repository: pivotal-cf/texplate
-  install_location: /usr/local/bin/texplate
-
 kubectl:
   install_location: /usr/local/bin
-
-tkgi:
-  glob: tkgi-linux-amd64-*
-  release: 1.8.1
-  slug: pivotal-container-service
-  install_location: /usr/local/bin/tkgi
