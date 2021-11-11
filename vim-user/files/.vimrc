@@ -26,8 +26,8 @@ nnoremap <silent> <C-p> :FZF<CR>
 
 " set the colorscheme (silent in case colorscheme has not yet been installed,
 " ie first run before PluginInstall)
-:silent! colorscheme gruvbox
-set background=dark    
+" :silent! colorscheme gruvbox
+" set background=dark    
 
 " turn vim-json syntax conceal off (see quotes are shown)
 let g:vim_json_syntax_conceal = 0
