@@ -16,6 +16,7 @@
   get_url:
     url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/zsh-installer.sh
+    mode: 0755
 
 - name: execute the oh-my-zsh installer
   become_user: "{{ local_user }}"
