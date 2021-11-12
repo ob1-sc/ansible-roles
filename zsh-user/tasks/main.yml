@@ -42,9 +42,9 @@
 
 - name: setup powerlevel10k
   become_user: "{{ local_user }}"
-  template:
-    src: files/.p10k.zsh.j2
-    dest: /home/{{ local_user }}/.zshrc
+  copy:
+    src: files/.p10k.zsh
+    dest: /home/{{ local_user }}/.p10k.zsh
 
 - name: change user shell to zsh 
   become_user: "{{ local_user }}"
