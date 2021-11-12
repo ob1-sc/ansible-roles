@@ -33,3 +33,15 @@
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: /home/{{ local_user }}/.oh-my-zsh/custom/themes/powerlevel10k
     depth: 1
+
+- name: setup zsh
+  become_user: "{{ local_user }}"
+  template:
+    src: files/.zshrc.j2
+    dest: /home/{{ local_user }}/.zshrc
+
+- name: setup powerlevel10k
+  become_user: "{{ local_user }}"
+  template:
+    src: files/.p10k.zsh.j2
+    dest: /home/{{ local_user }}/.zshrc
