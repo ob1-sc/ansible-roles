@@ -45,3 +45,9 @@
   template:
     src: files/.p10k.zsh.j2
     dest: /home/{{ local_user }}/.zshrc
+
+- name: change user shell to zsh 
+  become_user: "{{ local_user }}"
+  user:
+    name: "{{ local_user }}"
+    shell: /bin/zsh
