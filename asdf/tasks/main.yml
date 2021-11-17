@@ -1,0 +1,7 @@
+---
+- name: download asdf cli repo
+  become_user: "{{ local_user }}"
+  git:
+    repo: "https://github.com/asdf-vm/asdf.git"
+    dest: "/home/{{ local_user }}/.asdf"
+    version: v0.8.1 
