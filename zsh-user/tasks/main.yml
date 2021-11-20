@@ -46,6 +46,12 @@
     src: files/.p10k.zsh
     dest: /home/{{ local_user }}/.p10k.zsh
 
+- name: prepare kubeconfig management script
+  become_user: "{{ local_user }}"
+  copy:
+    src: files/.load-k8s-configs.sh
+    dest: /home/{{ local_user }}/.load-k8s-configs.sh
+
 - name: change user shell to zsh 
   user:
     name: "{{ local_user }}"
