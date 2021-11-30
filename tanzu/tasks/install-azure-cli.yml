@@ -21,4 +21,3 @@
 - name: Install Microsoft Azure cli
   apt:
     name: azure-cli
-
