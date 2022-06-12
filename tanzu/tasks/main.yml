@@ -1,42 +1,6 @@
 ---
-- name: install gomplate cli
-  include: install-github-release.yml
-  vars:
-    repository: "{{gomplate_cli.repository}}"
-    install_location: "{{gomplate_cli.install_location}}"
-    release_asset_filter: "{{gomplate_cli.release_asset_filter}}"
-
 - name: install kubectl
   include: install-kubectl.yml
-  
-- name: install om cli
-  include: install-github-release.yml
-  vars:
-    repository: "{{om_cli.repository}}"
-    install_location: "{{om_cli.install_location}}"
-
-- name: install pivnet cli
-  include: install-github-release.yml
-  vars:
-    repository: "{{pivnet_cli.repository}}"
-    install_location: "{{pivnet_cli.install_location}}"
-
-- name: install bbl cli
-  include: install-github-release.yml
-  vars:
-    repository: "{{bbl_cli.repository}}"
-    install_location: "{{bbl_cli.install_location}}"
-
-- name: install bosh cli
-  include: install-bosh-cli.yml
-
-- name: install credhub cli
-  include: install-credhub-cli.yml
-  vars:
-    repository: "{{credhub_cli.repository}}"
-
-- name: install cf cli
-  include: install-cf-cli.yml
 
 - name: install terraform cli
   include: install-terraform-cli.yml
@@ -55,13 +19,3 @@
   vars:
     repository: "{{jq_cli.repository}}"
     install_location: "{{jq_cli.install_location}}"
-
-- name: install texplate cli
-  include: install-github-release.yml
-  vars:
-    repository: "{{texplate_cli.repository}}"
-    install_location: "{{texplate_cli.install_location}}"
-
-- name: install tkgi cli
-  include: install-tkgi-cli.yml
-  when: (pivnet_api_token is defined) and (pivnet_api_token != "")
